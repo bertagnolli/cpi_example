@@ -1,12 +1,12 @@
 [package]
-name = "puppet_master"
+name = "puppet_pda"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "puppet_master"
+name = "puppet_pda"
 
 [features]
 no-entrypoint = []
@@ -20,4 +20,3 @@ overflow-checks = true
 
 [dependencies]
 anchor-lang = "0.24.2"
-puppet_pda = { path = "../puppet_pda", features = ["cpi"]}

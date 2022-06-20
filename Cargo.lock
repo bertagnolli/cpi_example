@@ -849,7 +849,14 @@ name = "puppet_master"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
- "puppet",
+ "puppet_pda",
+]
+
+[[package]]
+name = "puppet_pda"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
 ]
 
 [[package]]

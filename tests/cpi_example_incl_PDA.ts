@@ -14,6 +14,22 @@ describe('puppet', () => {
 
   //const puppetKeypair = Keypair.generate();
 
+    // Find bump
+    let puppetMasterAccount: null;
+    let puppetMasterAccountBump: null;
+
+    const getPuppetAccount = async () => {
+        let account,
+        accountBump = null;
+        [account, accountBump] = await anchor.web3.PublicKey.findProgramAddress(
+        [Buffer.from("puppet_account")],
+        puppetMasterProgram.programId
+        )
+        puppetMasterAccount = account;
+        puppetMasterAccountBump = accountBump;
+    }
+    getPuppetAccount();
+
   it('Account initialised and count has been incremented!', async () => {
 
     //Generate an account to emulate a user account
@@ -25,7 +41,7 @@ describe('puppet', () => {
     // await function returns the tx signature (to use with block explorer)
     const tx = await puppetProgram.methods.initialize().accounts({
       puppet: kp.publicKey, // New puppet account will be owned by the signer ('kp' signer creates new account)
-      authority: puppetMasterProgram.programId, // Authority for interacting with functions will be puppetMaster Pk
+      authority: puppetMasterAccount, // Authority for interacting with functions will be puppetMaster Pk
     }).signers([kp]).rpc();
 
     // Where do I get "remoteIncrement" from? Answer: "../target/types/puppet"
@@ -33,6 +49,7 @@ describe('puppet', () => {
       puppet: kp.publicKey, // User (kp) owns the public key which was used in the initialise function
       //puppet_program: puppetMasterProgram.programId, // Why doesn't this work???
       puppetProgram: puppetProgram.programId, // Address of the puppet program (same as signer 'kp')
+      pdaAuthority: puppetMasterAccount,
       //signer: puppetMasterProgram.programId, // Signer public key (Must bePuppet wallet authority)
       //authority: puppetMasterProgram.programId, // Signer public key (Must bePuppet wallet authority)
 

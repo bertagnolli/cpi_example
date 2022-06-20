@@ -1,1 +1,1 @@
-This example deploys two contracts and the user will interact with a contract, which in turn interacts with another contract via a CPI interface. This is a particularly challenging exercise since the end contract requires the intermediate contract to have the correct authority.
+
